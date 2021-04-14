@@ -1,5 +1,6 @@
 package com.fionicholas.samplefirestoremvp.data
 
+import android.util.Log
 import com.fionicholas.samplefirestoremvp.data.model.Notes
 import com.fionicholas.samplefirestoremvp.utils.BaseResult
 import com.google.firebase.firestore.DocumentReference
@@ -29,12 +30,13 @@ class NotesRepository : NotesDataSource {
     override fun addNotes(notes: Notes) = flow<BaseResult<DocumentReference>> {
 
         emit(BaseResult.loading())
-
+        Log.d("testt","1")
         val notesRef = notesCollection.add(notes).await()
-
+        Log.d("testt","2")
         emit(BaseResult.success(notesRef))
-
+        Log.d("testt","3")
     }.catch {
         emit(BaseResult.failed(it.message.toString()))
-    }.flowOn(Dispatchers.IO)
+        Log.d("testt","22")
+    }.flowOn(Dispatchers.IO )
 }
